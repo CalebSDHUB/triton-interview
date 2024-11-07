@@ -1,3 +1,4 @@
+# Description: This file is used to build the docker image for the model server
 FROM nvcr.io/nvidia/cuda:12.1.1-devel-ubuntu22.04
 RUN apt-get update && apt-get install -y \
     git \
@@ -24,25 +25,15 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
 RUN sed -i 's/python3/python3.11/g' /usr/bin/pip3
 RUN sed -i 's/python3/python3.11/g' /usr/bin/pip
 
+# Set up the workspace
 WORKDIR /workspace/
-# install requirements file
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+# Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
-
-
-COPY main.py .
-COPY helpers helpers
-# copy models IF models exists
-RUN mkdir -p models
-COPY models models
-# copy scripts IF scripts exists
-RUN mkdir -p scripts
-COPY scripts scripts
-
 ENV CUDA_MODULE_LOADING LAZY
 ENV LOG_VERBOSE 0
-ENV MODE "deployed"
-COPY docker_scripts/run_server.sh .
-CMD bash run_server.sh
+
+# TODO: Install the requirements file
+
+# TODO: Copy the source code
+
+# TODO: Run the server
