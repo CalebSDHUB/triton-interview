@@ -31,9 +31,15 @@ WORKDIR /workspace/
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CUDA_MODULE_LOADING=LAZY
 ENV LOG_VERBOSE=0
+# Set up (AI) model name
+ENV MODEL_NAME="stabilityai/stable-diffusion-2"
+ENV WARMUP_MODEL="true"
 
+# Copy current directory to Docker workspace
 COPY . /workspace/
 
+# Install dependencies
 RUN pip3 install -r requirements.txt
 
+# Run the model server
 CMD ["python3", "main.py"]
