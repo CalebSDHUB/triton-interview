@@ -1,0 +1,13 @@
+{
+	"name": "cuebric docker",
+	"image": "cuebric_assessment:latest",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-azuretools.vscode-docker",
+				"ms-vscode.makefile-tools"
+			]
+		}
+	}
+}
