@@ -32,8 +32,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV CUDA_MODULE_LOADING LAZY
 ENV LOG_VERBOSE 0
 
-# TODO: Install the requirements file
+RUN pip install -r requirements.txt
 
-# TODO: Copy the source code
+COPY . /workspace/
 
-# TODO: Run the server
+CMD ["python3", "main.py"]
