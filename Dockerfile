@@ -38,8 +38,10 @@ ENV WARMUP_MODEL="true"
 # Copy current directory to Docker workspace
 COPY . /workspace/
 
+# Install torch first to avoid conflicts with other packages.
+RUN pip install torch==2.3.0
 # Install dependencies
-RUN pip3 install -r requirements.txt
-
-# Run the model server
+RUN pip install -r requirements.txt
+#
+## Run the model server
 CMD ["python3", "main.py"]
