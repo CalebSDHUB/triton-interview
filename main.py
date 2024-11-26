@@ -23,9 +23,11 @@ class PyTritonServer:
         Initialize the PyTritonServer class and load the model.
         """
         # Set up logging
-        # logging.basicConfig(level=logging.INFO)
-        logging.basicConfig(level=logging.INFO, filemode='a',
-                            format='%(asctime)s - %(levelname)s - %(message)s')
+        logging.basicConfig(
+            level=logging.INFO, 
+            filemode='a',
+            format='%(asctime)s - %(levelname)s - %(message)s'
+            )
         self.logger = logging.getLogger(__name__)
 
         # NOTE: you can set your model name here
