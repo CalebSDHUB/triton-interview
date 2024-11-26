@@ -26,7 +26,11 @@ class PyTritonClient:
             inference_timeout (int): The timeout for the inference request.
         """
         # Set up logging
-        logging.basicConfig(level=logging.INFO)
+        logging.basicConfig(
+            level=logging.INFO, 
+            filemode='a',
+            format='%(asctime)s - %(levelname)s - %(message)s'
+            )
         self.logger = logging.getLogger(__name__)
         self.logger.info(f"Initializing Triton client for model: {model_name}")
         

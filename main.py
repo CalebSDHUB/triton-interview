@@ -23,7 +23,9 @@ class PyTritonServer:
         Initialize the PyTritonServer class and load the model.
         """
         # Set up logging
-        logging.basicConfig(level=logging.INFO)
+        # logging.basicConfig(level=logging.INFO)
+        logging.basicConfig(level=logging.INFO, filemode='a',
+                            format='%(asctime)s - %(levelname)s - %(message)s')
         self.logger = logging.getLogger(__name__)
 
         # NOTE: you can set your model name here
@@ -36,10 +38,10 @@ class PyTritonServer:
 
             # Loading model
             self.logger.info(f"Loading model: {self.model_name}")
-            self.pipe = StableDiffusionPipeline.from_pretrained(self.model_name)
+            # self.pipe = StableDiffusionPipeline.from_pretrained(self.model_name)
 
             # Model computes on chosen device
-            self.pipe.to(self.device)
+            # self.pipe.to(self.device)
             self.logger.info("Model loaded successfully.")
 
         except Exception as e:
@@ -56,7 +58,7 @@ class PyTritonServer:
         try:
             warmup_prompt = "A white cat walking in the forest"
             self.logger.info("Warming up the model")
-            self.pipe(warmup_prompt)
+            # self.pipe(warmup_prompt)
             self.logger.info("Model warm-up completed.")
         except Exception as e:
             self.logger.error(f"Error during model warm-up: {e}", exc_info=True)
@@ -125,7 +127,8 @@ class PyTritonServer:
                 decoded_prompt = req.data["prompt"][0].decode("utf-8")
                 self.logger.info(f"Received inference request with prompt: {decoded_prompt}")
                 # Perform inference on the decoded prompt
-                image = self._inference(decoded_prompt)
+                # image = self._inference(decoded_prompt)
+                image = self._generate_noise_image()
                 # Converts to raw data and encodes it to base64
                 raw_data = self._encode_image_to_base64(image)
 
