@@ -15,8 +15,11 @@ class PyTritonClient:
     A Triton client to interact with the Triton server.
     """
 
-    def __init__(self, server_url: str = "localhost", model_name: str = "stable-diffusion",
-                 inference_timeout: int = 60):
+    def __init__(
+        self, server_url: str = "localhost", 
+        model_name: str = "stable-diffusion",
+        inference_timeout: int = 60
+        ):
         """
         Initialize the PyTritonClient class.
 
@@ -35,7 +38,11 @@ class PyTritonClient:
         self.logger.info(f"Initializing Triton client for model: {model_name}")
         
         try:
-            self.client = ModelClient(server_url, model_name=model_name, inference_timeout_s=inference_timeout)
+            self.client = ModelClient(
+                server_url, 
+                model_name=model_name, 
+                inference_timeout_s=inference_timeout
+                )
             self.logger.info("Triton client initialized successfully.")
         except Exception as e:
             self.logger.error(f"Error initializing Triton client: {e}", exc_info=True)
