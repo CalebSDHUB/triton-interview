@@ -32,7 +32,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV CUDA_MODULE_LOADING=LAZY
 ENV LOG_VERBOSE=0
 # Set up (AI) model name
-ENV MODEL_NAME="stabilityai/stable-diffusion-2"
+ENV MODEL_NAME="segmind/tiny-sd"
 ENV WARMUP_MODEL="true"
 
 # Copy current directory to Docker workspace
