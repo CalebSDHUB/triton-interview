@@ -33,22 +33,17 @@ class PyTritonServer:
         # NOTE: you can set your model name here
         self.model_name = os.getenv("MODEL_NAME", "Curat/StableDiffusion1.4")
 
-        try:
-            # NOTE: you can change the device to "cpu" if you don't have a GPU, otherwise you may perform any optimizations you may find necessary
-            self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-            self.logger.info(f"Using device: {self.device}")
+        # NOTE: you can change the device to "cpu" if you don't have a GPU, otherwise you may perform any optimizations you may find necessary
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.logger.info(f"Using device: {self.device}")
 
-            # Loading model
-            self.logger.info(f"Loading model: {self.model_name}")
-            self.pipe = StableDiffusionPipeline.from_pretrained(self.model_name)
+        # Loading model
+        self.logger.info(f"Loading model: {self.model_name}")
+        self.pipe = StableDiffusionPipeline.from_pretrained(self.model_name)
 
-            # Model computes on chosen device
-            self.pipe.to(self.device)
-            self.logger.info("Model loaded successfully.")
-
-        except Exception as e:
-            self.logger.error(f"Error while initializing the model: {e}", exc_info=True)
-            raise
+        # Model computes on chosen device
+        self.pipe.to(self.device)
+        self.logger.info("Model loaded successfully.")
 
         if os.getenv("WARMUP_MODEL", False):
             self._warmup()
@@ -60,10 +55,11 @@ class PyTritonServer:
         try:
             warmup_prompt = "A white cat walking in the forest"
             self.logger.info("Warming up the model")
-            # self.pipe(warmup_prompt)
+            self.pipe(warmup_prompt)
             self.logger.info("Model warm-up completed.")
         except Exception as e:
             self.logger.error(f"Error during model warm-up: {e}", exc_info=True)
+            raise
 
     def _encode_image_to_base64(self, image: Image.Image) -> bytes:
         """
