@@ -40,10 +40,10 @@ class PyTritonServer:
 
             # Loading model
             self.logger.info(f"Loading model: {self.model_name}")
-            # self.pipe = StableDiffusionPipeline.from_pretrained(self.model_name)
+            self.pipe = StableDiffusionPipeline.from_pretrained(self.model_name)
 
             # Model computes on chosen device
-            # self.pipe.to(self.device)
+            self.pipe.to(self.device)
             self.logger.info("Model loaded successfully.")
 
         except Exception as e:
