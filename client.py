@@ -36,17 +36,12 @@ class PyTritonClient:
             )
         self.logger = logging.getLogger(__name__)
         self.logger.info(f"Initializing Triton client for model: {model_name}")
-        
-        try:
-            self.client = ModelClient(
-                server_url, 
-                model_name=model_name, 
-                inference_timeout_s=inference_timeout
-                )
-            self.logger.info("Triton client initialized successfully.")
-        except Exception as e:
-            self.logger.error(f"Error initializing Triton client: {e}", exc_info=True)
-            raise
+
+        self.client = ModelClient(
+            server_url,
+            model_name=model_name,
+            inference_timeout_s=inference_timeout
+            )
 
     def _infer_sample(self, prompt: str):
         """
